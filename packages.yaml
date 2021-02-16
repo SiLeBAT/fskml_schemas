@@ -1,0 +1,42 @@
+openapi: 3.0.0
+info:
+  title: packages.json schema
+  description: Description of the packages.json file.
+  version: 0.0.1
+host: "https://knime.bfr.berlin/schemas/packagesSchema.yaml"
+paths: {}
+components:
+  schemas:
+    VersionedPackage:
+      type: object
+      properties:
+        package:
+          type: string
+        version:
+          type: string
+      required:
+       - package
+       - version
+    PackagesInfo:
+      type: object
+      properties:
+        modelId: 
+          type: string
+        language:
+          type: string
+          enum: [python, r] # Optional.
+        languageVersion:
+          type: string
+        lackageList:
+          type: array
+          items:
+            $ref: '#/components/schemas/VersionedPackage'
+      required:
+        - language
+        - packageList
+        - modelId
+    CombinedPackages:
+      type: array
+      items:
+        $ref: '#components/schemas/PackagesInfo'
+      
